@@ -9,7 +9,12 @@ export async function middleware(req: NextRequest) {
   if (isAuthenticated && pathname.startsWith('/auth')) {
     return NextResponse.redirect(new URL('/', req.nextUrl))
   }
-  
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL('/project', req.nextUrl))
+  }
+  if (!isAuthenticated && pathname.startsWith('/project')) {
+    return NextResponse.redirect(new URL('/auth', req.nextUrl))
+  }
   return NextResponse.next()
 }
 
