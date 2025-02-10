@@ -5,7 +5,6 @@ export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname
   const token = await getToken({ req, secret })
   const isAuthenticated: boolean = !!token
-
   if (isAuthenticated && pathname.startsWith('/auth')) {
     return NextResponse.redirect(new URL('/', req.nextUrl))
   }
